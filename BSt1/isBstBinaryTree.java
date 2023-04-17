@@ -10,7 +10,7 @@ class BinaryTree<T>{
 /* 
  @ Author :- Rajnish Kumar
  */
-public class  Printk1k2 {
+public class  isBstBinaryTree {
     public static BinaryTree<Integer> BuildTreeHelper(int []in, int pre[], int sin, int ein, int spre, int epre){
         if(spre>epre){
             return null;
@@ -63,33 +63,48 @@ public class  Printk1k2 {
         PrintTree(root.left);
         PrintTree(root.right);
     }
-   public static void PrintFunction(BinaryTree<Integer> root, int k1, int k2){
-    if(root==null){
-        return;
+    public static int minimum(BinaryTree<Integer> root){
+        if(root==null){
+            return Integer.MAX_VALUE;
+        }
+        int leftmin=minimum(root.left);
+        int rightmin=minimum(root.right);
+        return Math.min(root.data,Math.min(leftmin, rightmin));
     }
-    if(root.data>k1 && root.data<k2){
-        System.out.print(root.data+" ");
+    public static int maximum(BinaryTree<Integer>root){
+        if(root==null){
+            return Integer.MIN_VALUE;
+        }
+        int leftmax=maximum(root.left);
+        int rightmax=maximum(root.right);
+
+        return Math.max(root.data,Math.max(leftmax,rightmax));
     }
-    if(root.data>k1){
-        PrintFunction(root.right, k1, k2);
-        
+    public static boolean isBst(BinaryTree<Integer> root){
+        if(root==null){
+            return true;
+        }
+        int leftMax=maximum(root.left);
+        if(root.data<leftMax){
+            return false;
+        }
+        int rightMin=minimum(root.right);
+        if(root.data>rightMin){
+            return false;
+        }
+        boolean isLeftBst=isBst(root.left);
+        boolean isRightBst=isBst(root.right);
+
+        return isLeftBst&&isRightBst;
     }
-    else if(root.data<k2){
-        PrintFunction(root.left, k1, k2);
-        
-    }
-    else{
-        System.out.print(root.data+" ");
-        PrintFunction(root.left, k1, k2);
-        PrintFunction(root.right, k1, k2);
-    }
-   }
+
     public static void main(String[] args) {
         int in[]={1,2,3,4,5,6,7};
         int pre[]={4,2,1,3,6,5,7};
         BinaryTree<Integer>root=BuildTreeUisngPreIn(in,pre);
         PrintTree(root);
-       PrintFunction(root, 3, 7);
+       boolean ans=isBst(root);
+       System.out.print(ans);
     }    
 }
 
