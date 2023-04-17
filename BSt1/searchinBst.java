@@ -10,7 +10,7 @@ class BinaryTree<T>{
 /* 
  @ Author :- Rajnish Kumar
  */
-public class  Printk1k2 {
+public class  searchinBst {
     public static BinaryTree<Integer> BuildTreeHelper(int []in, int pre[], int sin, int ein, int spre, int epre){
         if(spre>epre){
             return null;
@@ -63,33 +63,26 @@ public class  Printk1k2 {
         PrintTree(root.left);
         PrintTree(root.right);
     }
-   public static void PrintFunction(BinaryTree<Integer> root, int k1, int k2){
-    if(root==null){
-        return;
+    public static boolean searchinBst1(BinaryTree<Integer> root , int target){
+        if(root==null){
+            return false;
+        }
+        if(root.data==target){
+            return true;
+        }
+        if(target<root.data){
+            return searchinBst1(root.left, target);
+        }
+        return searchinBst1(root.right, target);
     }
-    if(root.data>k1 && root.data<k2){
-        System.out.print(root.data+" ");
-    }
-    if(root.data>k1){
-        PrintFunction(root.right, k1, k2);
-        return;
-    }
-    else if(root.data<k2){
-        PrintFunction(root.left, k1, k2);
-        return;
-    }
-    else{
-        System.out.print(root.data+" ");
-        PrintFunction(root.left, k1, k2);
-        PrintFunction(root.right, k1, k2);
-    }
-   }
+    
     public static void main(String[] args) {
-        int in[]={1,2,3,4,5,6,7};
-        int pre[]={4,2,1,3,6,5,7};
+        int in[]={1,3,2,4,5,6,7};
+        int pre[]={4,3,1,2,6,5,7};
         BinaryTree<Integer>root=BuildTreeUisngPreIn(in,pre);
         PrintTree(root);
-       PrintFunction(root, 3, 7);
+        boolean ans=searchinBst1(root, 5);
+        System.out.print(ans);
     }    
 }
 
