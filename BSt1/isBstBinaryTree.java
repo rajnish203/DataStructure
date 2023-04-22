@@ -7,6 +7,14 @@ class BinaryTree<T>{
     }
 }
 
+class Node<T>{
+    T data;
+    Node<T> next;
+    Node(T data){
+        this.data=data;
+    }
+}
+
 /* 
  @ Author :- Rajnish Kumar
  */
@@ -97,14 +105,34 @@ public class  isBstBinaryTree {
 
         return isLeftBst&&isRightBst;
     }
+    public static Node<Integer> ConvertBstToLinkedList(BinaryTree<Integer> root){
+        // By using the Inorder traversal
+
+        if(root==null){
+            return new Node<>(null);
+        }
+        ConvertBstToLinkedList(root.left);
+        Node<Integer> head=new Node<>(root.left.data);
+        Node<Integer> tail=ConvertBstToLinkedList(root.right);
+        head.next=tail;
+        return head;
+
+    }
+    public static void PrintList(Node<Integer> head){
+        Node<Integer> temp=head;
+        while(temp!=null){
+            System.out.print(temp.data+" ");
+            temp=temp.next;
+        }
+    }
 
     public static void main(String[] args) {
         int in[]={1,2,3,4,5,6,7};
         int pre[]={4,2,1,3,6,5,7};
         BinaryTree<Integer>root=BuildTreeUisngPreIn(in,pre);
         PrintTree(root);
-       boolean ans=isBst(root);
-       System.out.print(ans);
+        Node<Integer> head=ConvertBstToLinkedList(root);
+        PrintList(head);
     }    
 }
 

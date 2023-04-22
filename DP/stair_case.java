@@ -16,7 +16,7 @@ public class stair_case {
         return dp[n];
     }
     public static void main(String[] args) {
-        int n=4;
+        int n=10;
         long ans=All_possible_Ways(n);
         System.out.print(ans);
 
