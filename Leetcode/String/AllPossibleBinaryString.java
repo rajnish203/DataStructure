@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+
+/* @author Rajnish kumar */
 public class AllPossibleBinaryString {
     public static int countStrings(long N) {
         int count=0;
