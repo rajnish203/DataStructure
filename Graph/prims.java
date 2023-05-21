@@ -12,7 +12,7 @@ class Edge{
 }
 public class prims {
 
-    public static void prims(int adj[][], int n){
+    public static void primsFunc(int adj[][], int n){
         boolean visited[]=new boolean[n];
         int parent[]=new int[n];
         int weight[]=new int[n];
@@ -23,7 +23,30 @@ public class prims {
         for(int i=1;i<n;i++){
             weight[i]=Integer.MAX_VALUE;
         }
+        for(int i=0;i<n;i++){
+            int minVertex=findminVertex(visited, weight);
+            visited[minVertex]=true;
 
+            // explore the neighbours of the minvertex
+            for(int j=0;j<n;j++){
+                if(adj[minVertex][j]!=0 && !visited[j]){
+                    if(weight[j]>adj[minVertex][j]){
+                        weight[j]=adj[minVertex][j];
+                        parent[j]=minVertex;
+                    }
+                }
+            }
+        }
+
+    }
+    private static int findminVertex(boolean[] visited, int[] weight) {
+        int minvertex=-1;
+        for(int i=0;i<visited.length;i++){
+            if(!visited[i]&& weight[i]<weight[minvertex]){
+                minvertex=i;
+            }
+        }
+        return minvertex;
     }
     public static void main(String[] args) {
         Scanner s=new Scanner(System.in);
